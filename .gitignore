@@ -1,0 +1,5 @@
+/test_files
+/results
+/work
+.nextflow/
+.nextflow*
