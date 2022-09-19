@@ -18,7 +18,7 @@ include {
     tabix_bed as tabix_b2;
     mergecg;
     biscuiteer;
-} from params.module_path+"/procs.nf"
+} from "$projectDir/procs.nf"
 
 // ------------ Subworkflows ------------- //
 workflow initial_qc {
