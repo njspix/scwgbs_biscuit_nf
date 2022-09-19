@@ -122,8 +122,7 @@ process filter_bam {
 
     script:
     """
-        samtools view -hb -L ${bed_file} ${bam} > ${id}_filtered.bam
-        samtools index ${id}_filtered.bam
+        samtools view --write-index -hb -L ${bed_file} ${bam} -o ${id}_filtered.bam##idx##${id}_filtered.bam.bai
     """
 }
 
