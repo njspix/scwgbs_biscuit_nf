@@ -15,16 +15,20 @@ You'll need the following to get started:
 	* Nextflow
 
 ## Reference genome and Biscuit QC config:
-Open `conf/nextflow.config` in your favorite text editor and fill in the following values in the `params` section:
+Open `conf/resource_files.config` in your favorite editor. Add the following paths:
 * `bqc_path` : path to the Biscuit QC script
-* `ref` and `bqc_assets`: if you plan to use the hg38 genome, fill in paths to the reference and Biscuit QC assets for `hg38`. Likewise, if you plan to use to use the mouse genome, fill in the paths for `mm39`. You can also add your own genomes by adding another key, e.g. 
+* `ref` : path to a FASTA file containing the specified reference genome. Note that Biscuit index files must be present in the same directory. Run `biscuit index <your_reference_genome>.fa` to generate these files (only needs to be done once per genome).
+* `bqc_assets` : path to directory containing Biscuit QC assets for the specified genome.
+
+If you plan to use the hg38 genome, fill in paths to the reference and Biscuit QC assets for `hg38`. Likewise, if you plan to use to use the mouse genome, fill in the paths for `mm39`. You can also add your own genomes by adding another key, e.g. 
 ```
-	bqc_assets = [
+	params.bqc_assets = [
 		hg38: '',
 		mm39: '',
 		yourNewGenome: '/path/to/bqc/assets'
 	]
 ```
+This file can be re-used across many runs of the pipeline; you only need to update it when you want to analyze your reads against a new reference genome. 
 ## Cluster configuration
 Depending on the resources available at your site, you may need to specify a different execution engine, job queue, or other variables. Place these in the `cluster.config` file (see [Nextflow docs](https://www.nextflow.io/docs/latest/config.html#scope-executor) for details).
 
@@ -36,11 +40,11 @@ Create a copy of the config file `example_profile.config`. Open it in your favor
 * `genome` : Genome to align reads to. Must match one of the keys in the `ref` map mentioned above. E.g. `hg38`, `mm39`, or even `yourNewGenome` if you added a custom genome.
 * `bsconv_filter` : reads with more than this fraction of _unconverted_ CpH bases will be discarded. The suggested default (0.1) is probably sensible.
 
-Save your new config file, e.g. as `nathan.config`. 
+Save your new config file, e.g. as `2022_09_23-scwgbs-run.config`. 
 
 ## Run it!
 ```
-nextflow run analysis.nf -c ./conf/nathan.config
+nextflow run analysis.nf -c ./conf/2022_09_23-scwgbs-run.config
 ```
 Note: on at least some systems, the login or head node limits memory allocation to individual users, preventing the Nextflow JVM from starting. I get around this with the following alias:
 ```
