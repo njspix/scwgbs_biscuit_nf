@@ -33,7 +33,7 @@ This file can be re-used across many runs of the pipeline; you only need to upda
 Depending on the resources available at your site, you may need to specify a different execution engine, job queue, or other variables. Place these in the `cluster.config` file (see [Nextflow docs](https://www.nextflow.io/docs/latest/config.html#scope-executor) for details).
 
 ## Run-specific configuration
-Create a copy of the config file `example_profile.config`. Open it in your favorite text editor and update the following fields:
+Create a copy of the config file `example_run.config`. Open it in your favorite text editor and update the following fields:
 * `in_dir` : path to directory containing input fastq files
 * `out_dir` : path where you want your output files (will be created if it doesn't exist)
 * `target_bed` : BED file containing regions of the genome you want to analyze (only these regions will be reported in the final R dataframes/files)
